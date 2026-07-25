@@ -48,18 +48,27 @@ test.describe('Clase 02 - Navegacion y esperas en DemoBlaze', () => {
     });
 
 
-    test('Capturar el navbar u el footer por separado', async ({page}) => {
-        await page.goto('/');
+    test('Capturar el navbar y el footer por separado', async ({ page }) => {
+    await page.goto('/');
 
-        const navbar = page.locator('#navbarExample');
-        await navbar.screenshot({path: './evidencias/04-navbar.png'});
+   
+    const navbar = page.locator('#navbarExample');
+    await expect(navbar).toBeVisible();
+    await navbar.screenshot({
+        path: './evidencias/04-navbar.png'
+    });
 
-
-        const footer = page.locator('.container-fluid').last();
-        if (await footer.isVisible()){ 
-            await footer.screenshot({path: './evidencias/05-footer.png'}); }
     
-        });
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+
+    
+    const footer = page.locator('#footc');
+    await expect(footer).toBeVisible();
+
+    await footer.screenshot({
+        path: './evidencias/05-footer.png'
+    });
+});
 
 
 
